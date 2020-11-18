@@ -19,6 +19,7 @@ following performance:
 ### Step 2
 
 For this step I implemented the IMU update of the estimator.
+I created a complementary filter with a better integration scheme.
 The code appears below. We make use of the quaternion and the
 method provided by the class. Then we extract the Roll, Pitch and Yaw.
 
@@ -34,7 +35,7 @@ The performance obtained with the better integration scheme is shown below.
 
 ### Step 3
 
-For this step I implemented the state prediction step:
+For this step I implemented the state prediction step. We first need to express the acceleration in the ground/inertial frame. Then we do the simple integration step for the estimated positions and velocities. We also need to subtract the gravity acceleration. The code is shown below:
 
 <p align="center">
 <img src="images/Step_3_1.PNG" width="500"/>
@@ -47,13 +48,13 @@ And the estimator could accurately track the actual state, with a slow drift.
 </p>
 
 After introducing the realistic IMU with noise as per the instructions,
-I implemented the Rgb prime function
+I implemented the Rgb prime function which is a simple implementation of equation 52 in the document.
 
 <p align="center">
 <img src="images/Step_3_3.PNG" width="500"/>
 </p>
 
-and the Predict step:
+and the Predict step which is basically equation 51 in the document:
 
 <p align="center">
 <img src="images/Step_3_4.PNG" width="500"/>
@@ -67,13 +68,13 @@ Modifying the  gains I could see that the covariance grows like the data:
 
 ### Step 4
 
-In this step I implemented the function that uses the magnetometer for the yaw updates
+In this step I implemented the function that uses the magnetometer for the yaw updates. See equations 56, 57 and 58 of the "Estimation for Quadrotors" document. I also normalized the difference between the measured and the estimated yaw.
 
 <p align="center">
 <img src="images/Step_4_1.PNG" width="500"/>
 </p>
 
-and th eoutput was as follows, passing the criteria.
+and the output was as follows, passing the criteria.
 
 <p align="center">
 <img src="images/Step_4_2.PNG" width="500"/>
@@ -81,8 +82,8 @@ and th eoutput was as follows, passing the criteria.
 
 ### Step 5
 
-In this step, I implemented the GPS update function (simple Implementation
-of the document equations)
+In this step, following the instructions, I implemented the GPS update function (simple Implementation
+of the document equations 53, 54 and 55)
 
 <p align="center">
 <img src="images/Step_5_1.PNG" width="500"/>
